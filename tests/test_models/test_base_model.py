@@ -47,3 +47,15 @@ class TestBaseClass(unittest.TestCase):
         bma.save()
 
         self.assertNotEqual(a_time, bma.updated_at)
+
+    def testInit(self):
+        """Tests init given a dictionary"""
+        bma = BaseModel()
+        bma.my_num = 47;
+
+        bmb = BaseModel(**bma.to_dict())
+
+        self.assertEqual(bma.id, bmb.id)
+        self.assertEqual(bma.created_at, bmb.created_at)
+        self.assertEqual(bma.updated_at, bmb.updated_at)
+        self.assertEqual(bmb.my_num, 47)

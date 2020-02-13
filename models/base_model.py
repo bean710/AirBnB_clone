@@ -6,12 +6,23 @@ from datetime import datetime
 class BaseModel():
     """Base class for all future classes"""
 
-    def __init__(self):
-        self.id = str(uuid.uuid4())
-        '''Assign the current datetime when an instance is created'''
-        self.created_at = datetime.now()
-        '''Give the current datetime when an object is changed'''
-        self.updated_at = datetime.now()
+    def __init__(self, *args, **kwargs):
+        """Initialiser for base class"""
+
+        if (kwargs is not None and kwargs != {}):
+            for k, v in kwargs.items():
+                self.__dict__[k] = v
+
+            self.__dict__["created_at"] = datetime.strptime(
+                self.__dict__["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+            self.__dict__["updated_at"] = datetime.strptime(
+                self.__dict__["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+        else:
+            self.id = str(uuid.uuid4())
+            '''Assign the current datetime when an instance is created'''
+            self.created_at = datetime.now()
+            '''Give the current datetime when an object is changed'''
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """String method to return prettier version of the BaseModel"""
