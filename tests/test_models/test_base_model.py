@@ -2,7 +2,7 @@
 """Module for testing the Base class"""
 import unittest
 from models.base_model import BaseModel
-from datetime import date
+from datetime import datetime
 
 class TestBaseClass(unittest.TestCase):
     """Contains functions for testing aspects of the base class"""
@@ -22,3 +22,5 @@ class TestBaseClass(unittest.TestCase):
 
     def testStringify(self):
         """Tests that the str method for a BaseModel"""
+        bma = BaseModel()
+        self.assertRegex(str(bma), "\[.+\] (.+) <.+>")
