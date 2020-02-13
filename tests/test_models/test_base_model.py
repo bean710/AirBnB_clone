@@ -24,3 +24,18 @@ class TestBaseClass(unittest.TestCase):
         """Tests that the str method for a BaseModel"""
         bma = BaseModel()
         self.assertRegex(str(bma), "\[.+\] (.+) <.+>")
+
+    def testDict(self):
+        """Tests the dictionary conversion"""
+        bma = BaseModel()
+        a_dict = bma.to_dict()
+
+        self.assertIsNotNone(a_dict["id"])
+        self.assertIsNotNone(a_dict["created_at"])
+        self.assertIsNotNone(a_dict["updated_at"])
+        self.assertIsNotNone(a_dict["__class__"])
+
+        self.assertEqual(a_dict["__class__"], "BaseModel")
+
+        self.assertRegex(a_dict["created_at"], "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d+")
+        self.assertRegex(a_dict["updated_at"], "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d+")
