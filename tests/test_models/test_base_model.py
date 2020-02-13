@@ -39,3 +39,11 @@ class TestBaseClass(unittest.TestCase):
 
         self.assertRegex(a_dict["created_at"], "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d+")
         self.assertRegex(a_dict["updated_at"], "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d+")
+
+    def testSave(self):
+        """Tests that save updates the time"""
+        bma = BaseModel()
+        a_time = bma.updated_at
+        bma.save()
+
+        self.assertNotEqual(a_time, bma.updated_at)

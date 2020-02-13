@@ -27,3 +27,7 @@ class BaseModel():
         ret["updated_at"] = ret["updated_at"].isoformat()
 
         return ret
+
+    def save(self):
+        """Updates the updated_at time"""
+        self.updated_at = datetime.now()
