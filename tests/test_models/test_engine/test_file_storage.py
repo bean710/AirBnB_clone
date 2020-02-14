@@ -42,7 +42,7 @@ class TestFileStorage(unittest.TestCase):
         fs.new(bma)
 
         self.assertIs(type(fs.all()), dict)
-        self.assertEqual(fs.all()["BaseModel." + bma.id], bma.to_dict())
+        self.assertEqual(fs.all()["BaseModel." + bma.id], bma)
 
     def testSave(self):
         """Tests that the storage can be saved to a file"""
@@ -55,7 +55,7 @@ class TestFileStorage(unittest.TestCase):
         fs.save()
 
         with open("test.json", "r") as f:
-            self.assertEqual(json.loads(f.read()), {k:v.to_dict for k, v in
+            self.assertEqual(json.loads(f.read()), {k:v.to_dict() for k, v in
                                                     fs.all().items()})
 
     def testReload(self):
@@ -63,14 +63,15 @@ class TestFileStorage(unittest.TestCase):
         bma = BaseModel()
         bmb = BaseModel()
 
-        fs.new(bma)
-        fs.new(bmb)
+        bmb.name = "FooBar"
 
         og_all = fs.all().copy()
+        og_all_dict = {k:v.to_dict() for k, v in og_all.items()}
         fs.save()
 
         FileStorage._FileStorage__objects = {}
 
         fs.reload()
 
-        self.assertEqual(og_all, fs.all())
+        self.maxDiff = None
+        self.assertEqual(og_all_dict, {k:v.to_dict() for k, v in fs.all().items()})

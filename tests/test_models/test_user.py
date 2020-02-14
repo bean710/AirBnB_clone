@@ -19,7 +19,9 @@ class TestUserClass(unittest.TestCase):
         u2 = User()
 
         u1.email = "foo@bar.fubar"
-        self.assertEqual(u2.email, "foo@bar.fubar")
+        self.assertEqual(u1.email, "foo@bar.fubar")
+        self.assertNotEqual(u2.email, "foo@bar.fubar")
 
         u2.first_name = "Bobby"
-        self.assertEqual(u1.first_name, "Bobby")
+        self.assertEqual(u2.first_name, "Bobby")
+        self.assertNotEqual(u1.first_name, "Bobby")
