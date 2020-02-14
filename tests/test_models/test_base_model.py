@@ -3,6 +3,7 @@
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
+import json
 
 class TestBaseClass(unittest.TestCase):
     """Contains functions for testing aspects of the base class"""
@@ -47,6 +48,9 @@ class TestBaseClass(unittest.TestCase):
         bma.save()
 
         self.assertNotEqual(a_time, bma.updated_at)
+
+        with open("data.json", "r") as f:
+            self.assertIn(bma.to_dict(), json.loads(f.read()).values())
 
     def testInit(self):
         """Tests init given a dictionary"""

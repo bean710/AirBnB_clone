@@ -55,7 +55,8 @@ class TestFileStorage(unittest.TestCase):
         fs.save()
 
         with open("test.json", "r") as f:
-            self.assertEqual(json.loads(f.read()), fs.all())
+            self.assertEqual(json.loads(f.read()), {k:v.to_dict for k, v in
+                                                    fs.all().items()})
 
     def testReload(self):
         """Tests that the storage can be loaded from a file"""
