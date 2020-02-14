@@ -2,6 +2,7 @@
 """Module containing the base class"""
 import uuid
 from datetime import datetime
+from models import storage
 
 class BaseModel():
     """Base class for all future classes"""
@@ -23,6 +24,7 @@ class BaseModel():
             self.created_at = datetime.now()
             '''Give the current datetime when an object is changed'''
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """String method to return prettier version of the BaseModel"""
@@ -42,3 +44,4 @@ class BaseModel():
     def save(self):
         """Updates the updated_at time"""
         self.updated_at = datetime.now()
+        storage.save()
