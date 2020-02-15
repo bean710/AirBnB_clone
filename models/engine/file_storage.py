@@ -41,3 +41,8 @@ class FileStorage():
                     FileStorage.__objects[k] = models.base_model.BaseModel(**v)
                 elif (v["__class__"] == "User"):
                     FileStorage.__objects[k] = models.user.User(**v)
+
+    def destroy(self, id_s):
+        """Removes an entry from storage"""
+        if (id_s in FileStorage.__objects):
+            del FileStorage.__objects[id_s]
