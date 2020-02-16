@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import cmd
+import re
 import models
 from models.base_model import BaseModel
 from models.user import User
@@ -95,6 +96,39 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** no instance found **")
 
+    def do_update(self, line):
+        """Updates an instance in storage"""
+        args = re.compile(r"(\"[^\"]+\"|[^\s]+)").findall(line)
+        s_all = models.storage.all()
+
+        if (len(args) == 0):
+            print("** class name missing **")
+            return
+
+        if (args[0] not in modelClasses):
+            print("** class doesn't exist **")
+            return
+
+        if (len(args) == 1):
+            print("** instance id missing **")
+            return
+
+        key = "{}.{}".format(args[0], args[1])
+        if (key not in s_all.keys()):
+            print("** no instance found **")
+            return
+
+        if (len(args) == 2):
+            print("** attribute name missing **")
+            return
+
+        if (len(args) == 3):
+            print("** value missing **")
+            return
+
+        #s_all[key] = (type(s_all[key]))(args[3][1:-2])
+        s_all[key].__dict__[args[2]] = (args[3][1:-1])
+        s_all[key].save()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
