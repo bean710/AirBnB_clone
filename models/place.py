@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from models.basemodel import BaseModel
+from models.base_model import BaseModel
 
 class Place(BaseModel):
     """Public attributes for Place"""
