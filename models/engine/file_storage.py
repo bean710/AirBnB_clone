@@ -4,6 +4,11 @@ import json
 import models
 import models.base_model
 import models.user
+import models.state
+import models.city
+import models.amenity
+import models.place
+import models.review
 
 class FileStorage():
     """The class that handles where and how the data is stored"""
@@ -36,11 +41,21 @@ class FileStorage():
             pass
         else:
             for k, v in tmp.items():
-                ## ---> FileStorage.__objects[k] = getattr(models.base_model, v["__class__"])(**v)
-                if (v["__class__"] == "BaseModel"):
+                cname = v["__class__"]
+                if (cname == "BaseModel"):
                     FileStorage.__objects[k] = models.base_model.BaseModel(**v)
-                elif (v["__class__"] == "User"):
+                elif (cname == "User"):
                     FileStorage.__objects[k] = models.user.User(**v)
+                elif (cname == "State"):
+                    FileStorage.__objects[k] = models.state.State(**v)
+                elif (cname == "City"):
+                    FileStorage.__objects[k] = models.city.City(**v)
+                elif (cname == "Amenity"):
+                    FileStorage.__objects[k] = models.amenity.Amenity(**v)
+                elif (cname == "Place"):
+                    FileStorage.__objects[k] = models.place.Place(**v)
+                elif (cname == "Review"):
+                    FileStorage.__objects[k] = models.review.Review(**v)
 
     def destroy(self, id_s):
         """Removes an entry from storage"""
