@@ -10,6 +10,7 @@ import models.amenity
 import models.place
 import models.review
 
+
 class FileStorage():
     """The class that handles where and how the data is stored"""
 
@@ -28,7 +29,7 @@ class FileStorage():
     def save(self):
         """Serializes storage to the JSON file"""
         with open(FileStorage.__file_path, "w") as f:
-            f.write(json.dumps({k:v.to_dict() for k,v in
+            f.write(json.dumps({k: v.to_dict() for k, v in
                                 FileStorage.__objects.items()}))
 
     def reload(self):
@@ -41,6 +42,7 @@ class FileStorage():
             pass
         else:
             for k, v in tmp.items():
+                # TODO: Is there a more ambiguous way to do this?
                 cname = v["__class__"]
                 if (cname == "BaseModel"):
                     FileStorage.__objects[k] = models.base_model.BaseModel(**v)
