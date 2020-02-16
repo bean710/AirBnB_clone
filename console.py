@@ -5,8 +5,14 @@ import re
 import models
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
-modelClasses = ("BaseModel", "User")
+modelClasses = ("BaseModel", "User", "Place", "State", "City", "Amenity",
+                "Review")
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
@@ -29,14 +35,10 @@ class HBNBCommand(cmd.Cmd):
         if (len(args) == 0):
             print("** class name missing **")
             return
-        if (args[0] == "BaseModel"):
-            bm = BaseModel()
+        if (args[0] in modelClasses):
+            bm = eval(args[0] + "()")
             bm.save()
             print(bm.id)
-        elif (args[0] == "User"):
-            ui = User()
-            ui.save()
-            print(ui.id)
         else:
             print("** class doesn't exist **")
 
