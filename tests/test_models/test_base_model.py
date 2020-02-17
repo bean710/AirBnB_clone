@@ -63,3 +63,9 @@ class TestBaseClass(unittest.TestCase):
         self.assertEqual(bma.created_at, bmb.created_at)
         self.assertEqual(bma.updated_at, bmb.updated_at)
         self.assertEqual(bmb.my_num, 47)
+
+    def testMethod(self):
+        """Check for methods in BaseModel"""
+        self.assertTrue(hasattr(BaseModel, "__init__"))
+        self.assertTrue(hasattr(BaseModel, "save"))
+        self.assertTrue(hasattr(BaseModel, "to_dict"))
