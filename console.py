@@ -17,7 +17,7 @@ modelClasses = ("BaseModel", "User", "Place", "State", "City", "Amenity",
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
-    def lineignore(self):
+    def emptyline(self):
         """Ignore empty line"""
         pass
 
