@@ -14,6 +14,7 @@ from models.review import Review
 modelClasses = ("BaseModel", "User", "Place", "State", "City", "Amenity",
                 "Review")
 
+
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
@@ -58,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         if ("{}.{}".format(args[0], args[1]) in models.storage.all().keys()):
-            print (models.storage.all()["{}.{}".format(args[0], args[1])])
+            print(models.storage.all()["{}.{}".format(args[0], args[1])])
         else:
             print("** no instance found **")
 
@@ -75,7 +76,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        print([str(v) for v in all_vals if v.to_dict()["__class__"] == args[0]])
+        print([str(v) for v in all_vals
+               if v.to_dict()["__class__"] == args[0]])
 
     def do_destroy(self, line):
         """Removes an object from storage"""
@@ -128,7 +130,6 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        #s_all[key] = (type(s_all[key]))(args[3][1:-2])
         s_all[key].__dict__[args[2]] = (args[3][1:-1])
         s_all[key].save()
 

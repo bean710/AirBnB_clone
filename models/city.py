@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-
+"""This is the city class"""
 from models.base_model import BaseModel
 
-"""This is the city class"""
 
 class City(BaseModel):
     """This class id is for city attributes"""
