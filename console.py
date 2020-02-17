@@ -139,7 +139,8 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         """Handles custom format commands"""
-        if (re.match(r"\w+\.\w+\(\w*\)", line) is None):
+        if (re.match(r"\w+\.\w+(\(\)|\(\"[^\"]*\"(?:, (\"[^\"]*\"|{.*}))*\))",
+                     line) is None):
             super().default(line)
             return
 
@@ -147,7 +148,7 @@ class HBNBCommand(cmd.Cmd):
 
         cname = line.split(".")[0]
         command = line.split(".")[1].split("(")[0]
-        arg = line.split(".")[1].split("(")[1][:-1]
+        arg = line.split("(")[1][:-1]
 
         if (command == "all"):
             if (cname not in modelClasses):
@@ -161,8 +162,29 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             count = sum(1 for k, v in s_all.items()
-                        if v.__dict__["__class__"] == cname)
+                       if v.to_dict()["__class__"] == cname)
             print(count)
+        elif (command == "show"):
+            if (cname not in modelClasses):
+                print("** class doesn't exist **")
+                return
+
+            if (len(arg) <= 2):
+                print("** no instance found **")
+                return
+
+            arg = arg[1:-1]
+
+            if ("{}.{}".format(args[0], args[1]) in models.storage.all().keys()):
+                print(models.storage.all()["{}.{}".format(args[0], args[1])])
+            else:
+                print("** no instance found **")
+        elif (command == "destroy"):
+            if (cname not in modelClasses):
+                print("** class doesn't exist **")
+                return
+
+            self.do_destroy(command + " " + arg[1:-1])
         else:
             super().default(line)
 
