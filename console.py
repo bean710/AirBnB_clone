@@ -43,6 +43,10 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
+    def complete_create(self, text, line, begidx, endidx):
+        """Text completion for create command"""
+        return [i for i in modelClasses if i.startswith(text)]
+
     def do_show(self, line):
         """Shows the string representation of an instance"""
         args = line.split()
@@ -132,6 +136,35 @@ class HBNBCommand(cmd.Cmd):
 
         s_all[key].__dict__[args[2]] = (args[3][1:-1])
         s_all[key].save()
+
+    def default(self, line):
+        """Handles custom format commands"""
+        if (re.match(r"\w+\.\w+\(\w*\)", line) is None):
+            super().default(line)
+            return
+
+        s_all = models.storage.all()
+
+        cname = line.split(".")[0]
+        command = line.split(".")[1].split("(")[0]
+        arg = line.split(".")[1].split("(")[1][:-1]
+
+        if (command == "all"):
+            if (cname not in modelClasses):
+                print("** class doesn't exist **")
+                return
+
+            self.do_all(cname)
+        elif (command == "count"):
+            if (cname not in modelClasses):
+                print("** class doesn't exist **")
+                return
+
+            count = sum(1 for k, v in s_all.items()
+                        if v.__dict__["__class__"] == cname)
+            print(count)
+        else:
+            super().default(line)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
