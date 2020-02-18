@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""This module has the command prompt class"""
 import cmd
 import re
 import models
@@ -16,6 +16,7 @@ modelClasses = ("BaseModel", "User", "Place", "State", "City", "Amenity",
 
 
 class HBNBCommand(cmd.Cmd):
+    """Class to define how the command prompt interacts with the program"""
     prompt = "(hbnb) "
 
     def emptyline(self):
