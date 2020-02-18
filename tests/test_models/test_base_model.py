@@ -63,3 +63,11 @@ class TestBaseClass(unittest.TestCase):
         self.assertTrue(hasattr(BaseModel, "__init__"))
         self.assertTrue(hasattr(BaseModel, "save"))
         self.assertTrue(hasattr(BaseModel, "to_dict"))
+
+    def testattr(self):
+        """Test to see if instance was properly created"""
+        bm = BaseModel()
+        self.assertTrue(hasattr(bm, "__init__"))
+        self.assertTrue(hasattr(bm, "created_at"))
+        self.assertTrue(hasattr(bm, "updated_at"))
+        self.assertTrue(hasattr(bm, "id"))
