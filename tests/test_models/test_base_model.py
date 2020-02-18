@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Module for testing the Base class"""
 import unittest
+import time
 from models.base_model import BaseModel
 from datetime import datetime
 import json
@@ -39,6 +40,7 @@ class TestBaseClass(unittest.TestCase):
         """Tests that save updates the time"""
         bma = BaseModel()
         a_time = bma.updated_at
+        time.sleep(0.001)
         bma.save()
 
         self.assertNotEqual(a_time, bma.updated_at)
