@@ -107,8 +107,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """Updates an instance in storage"""
-        args = re.compile(r"(\"[^\"]+\"|[^\s]+)").findall(line)
+        args = re.compile(r"(\"[^\"]+\"|[^,\s]+)").findall(line)
         s_all = models.storage.all()
+
+        args = [x.strip("\"") for x in args]
 
         if (len(args) == 0):
             print("** class name missing **")
@@ -135,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        s_all[key].__dict__[args[2]] = (args[3][1:-1])
+        s_all[key].__dict__[args[2]] = (args[3])
         s_all[key].save()
 
     def default(self, line):
@@ -150,8 +152,6 @@ class HBNBCommand(cmd.Cmd):
         cname = line.split(".")[0]
         command = line.split(".")[1].split("(")[0]
         arg = line.split("(")[1][:-1]
-
-        print(command, cname, arg)
 
         if (command == "all"):
             if (cname not in modelClasses):
@@ -188,6 +188,8 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             self.do_destroy(cname + " " + arg[1:-1])
+        elif (command == "update"):
+            self.do_update(cname + " " + arg)
         else:
             super().default(line)
 
