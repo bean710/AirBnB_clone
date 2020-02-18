@@ -151,6 +151,8 @@ class HBNBCommand(cmd.Cmd):
         command = line.split(".")[1].split("(")[0]
         arg = line.split("(")[1][:-1]
 
+        print(command, cname, arg)
+
         if (command == "all"):
             if (cname not in modelClasses):
                 print("** class doesn't exist **")
@@ -176,8 +178,8 @@ class HBNBCommand(cmd.Cmd):
 
             arg = arg[1:-1]
 
-            if ("{}.{}".format(args[0], args[1]) in models.storage.all().keys()):
-                print(models.storage.all()["{}.{}".format(args[0], args[1])])
+            if ("{}.{}".format(cname, arg) in models.storage.all().keys()):
+                print(models.storage.all()["{}.{}".format(cname, arg)])
             else:
                 print("** no instance found **")
         elif (command == "destroy"):
@@ -185,7 +187,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
 
-            self.do_destroy(command + " " + arg[1:-1])
+            self.do_destroy(cname + " " + arg[1:-1])
         else:
             super().default(line)
 
