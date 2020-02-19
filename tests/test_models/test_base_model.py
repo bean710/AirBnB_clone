@@ -19,7 +19,7 @@ class TestBaseClass(unittest.TestCase):
     def testStringify(self):
         """Tests that the str method for a BaseModel"""
         bma = BaseModel()
-        self.assertRegex(str(bma), "\[.+\] (.+) <.+>")
+        self.assertRegex(str(bma), "\[.+\] (.+) {.+}")
 
     def testDict(self):
         """Tests the dictionary conversion"""
