@@ -1,4 +1,4 @@
-B#!/usr/bin/python3
+#!/usr/bin/python3
 """This module has tests for the console"""
 import unittest
 import unittest.mock
@@ -255,8 +255,3 @@ class TestConsoleClass(unittest.TestCase):
 
         self.assertEqual(b1.first_name, "Drew")
         self.assertEqual(b1.last_name, "Keener")
-
-    def testquit(self):
-        """Test proper exit of the console"""
-        bx = HBNBCommand().create()
-        self.assertTrue(bm.onecmd("quit"))
