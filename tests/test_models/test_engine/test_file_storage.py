@@ -8,6 +8,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+from models.user import User
 from models.engine.file_storage import FileStorage
 import os
 import json
@@ -125,3 +126,35 @@ class TestFileStorage(unittest.TestCase):
         fs.reload()
 
         self.assertIn("Review.{}".format(s1.id), models.storage.all().keys())
+
+    def testStoreAmenity(self):
+        """Tests that a Amenity can me stored and reloaded"""
+        s1 = Amenity()
+
+        fs.save()
+        FileStorage._FileStorage__objects = {}
+
+        fs.reload()
+
+        self.assertIn("Amenity.{}".format(s1.id), models.storage.all().keys())
+
+    def testStoreUser(self):
+        """Tests that a User can me stored and reloaded"""
+        s1 = User()
+
+        fs.save()
+        FileStorage._FileStorage__objects = {}
+
+        fs.reload()
+
+        self.assertIn("User.{}".format(s1.id), models.storage.all().keys())
+
+    def testNoFileReload(self):
+        """Tests reload with no file"""
+        try:
+            os.remove("test.json")
+        except:
+            pass
+
+        fs.reload()
+        self.assertEqual(models.storage.all(), {})
