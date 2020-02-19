@@ -3,6 +3,7 @@
 import cmd
 import re
 import models
+import json
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -110,7 +111,6 @@ class HBNBCommand(cmd.Cmd):
         args = re.compile(r"(\"[^\"]+\"|[^,\s]+)").findall(line)
         s_all = models.storage.all()
 
-
         if (len(args) == 0):
             print("** class name missing **")
             return
@@ -190,7 +190,16 @@ class HBNBCommand(cmd.Cmd):
 
             self.do_destroy(cname + " " + arg[1:-1])
         elif (command == "update"):
-            self.do_update(cname + " " + arg)
+            if (re.match(r"\"[^\"]+\", {.+}", arg)):
+                s_all = models.storage.all()
+
+                arg = arg.replace("\'", "\"")
+                arg_d = json.loads(arg.split(", ", 1)[1])
+                key = cname + "." + arg.split(", ")[0].strip("\"")
+                for k, v in arg_d.items():
+                    setattr(s_all[key], k, v)
+            else:
+                self.do_update(cname + " " + arg)
         else:
             super().default(line)
 
