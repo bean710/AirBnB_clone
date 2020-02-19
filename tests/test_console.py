@@ -1,4 +1,4 @@
-B#!/usr/bin/python3
+#!/usr/bin/python3
 """This module has tests for the console"""
 import unittest
 import unittest.mock

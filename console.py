@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
             return
         if (args[0] in modelClasses):
             bm = eval(args[0] + "()")
-            bm.save()
+            models.storage.save()
             print(bm.id)
         else:
             print("** class doesn't exist **")
