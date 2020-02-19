@@ -15,6 +15,7 @@ import json
 
 fs = FileStorage()
 
+
 class TestFileStorage(unittest.TestCase):
     """Class contains testing methods"""
 
@@ -36,8 +37,8 @@ class TestFileStorage(unittest.TestCase):
 
     def testAll(self):
         """Tests that the all method works to get all objects"""
-        dicts = {"BaseModel.0001":{"foo":1, "Bar":2},
-                 "BaseModel.0002":{"Ben":47, "Keener":29}}
+        dicts = {"BaseModel.0001": {"foo": 1, "Bar": 2},
+                 "BaseModel.0002": {"Ben": 47, "Keener": 29}}
 
         FileStorage._FileStorage__objects = dicts
 
@@ -62,7 +63,7 @@ class TestFileStorage(unittest.TestCase):
         fs.save()
 
         with open("test.json", "r") as f:
-            self.assertEqual(json.loads(f.read()), {k:v.to_dict() for k, v in
+            self.assertEqual(json.loads(f.read()), {k: v.to_dict() for k, v in
                                                     fs.all().items()})
 
     def testReload(self):
@@ -73,7 +74,7 @@ class TestFileStorage(unittest.TestCase):
         bmb.name = "FooBar"
 
         og_all = fs.all().copy()
-        og_all_dict = {k:v.to_dict() for k, v in og_all.items()}
+        og_all_dict = {k: v.to_dict() for k, v in og_all.items()}
         fs.save()
 
         FileStorage._FileStorage__objects = {}
@@ -81,7 +82,8 @@ class TestFileStorage(unittest.TestCase):
         fs.reload()
 
         self.maxDiff = None
-        self.assertEqual(og_all_dict, {k:v.to_dict() for k, v in fs.all().items()})
+        self.assertEqual(og_all_dict, {k: v.to_dict() for k, v in fs.all().
+                                       items()})
 
     def testStoreState(self):
         """Tests that a State can me stored and reloaded"""
