@@ -255,3 +255,82 @@ class TestConsoleClass(unittest.TestCase):
 
         self.assertEqual(b1.first_name, "Drew")
         self.assertEqual(b1.last_name, "Keener")
+
+    def testAllMethod(self):
+        """Tests the class.all() command line method"""
+        b1 = BaseModel()
+        u1 = User()
+
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("User.all()")
+            self.assertNotIn("BaseModel", f.getvalue().rstrip())
+
+    def testAllWrongClass(self):
+        """Tests the class.all() method with an incorrect class"""
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("FuBar.all()")
+            self.assertEqual(f.getvalue().rstrip(),
+                             "** class doesn't exist **")
+
+    def testCountMethod(self):
+        """Tests the class.count() command line method"""
+        b1 = BaseModel()
+        u1 = User()
+        u2 = User()
+
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("User.count()")
+            self.assertEqual(f.getvalue().rstrip(), "2")
+
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.count()")
+            self.assertEqual(f.getvalue().rstrip(), "1")
+
+        u3 = User()
+
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("User.count()")
+            self.assertEqual(f.getvalue().rstrip(), "3")
+
+    def testCountWrongClass(self):
+        """Tests the class.all() method with an incorrect class"""
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("FuBar.count()")
+            self.assertEqual(f.getvalue().rstrip(),
+                             "** class doesn't exist **")
+
+    def testShowMethodBaseModel(self):
+        """Tests that a BaseModel can be shown"""
+        b1 = BaseModel()
+
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.show(\"{}\")".format(b1.id))
+            self.assertEqual(f.getvalue().rstrip(), str(b1))
+
+    def testShowMethodWrongClass(self):
+        """Tests for the correct output with an invalid class"""
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("EndlessSuffering.show(\"foo\")")
+            self.assertEqual(f.getvalue().rstrip(),
+                             "** class doesn't exist **")
+
+    def testShowMethodNoId(self):
+        """Tests for the correct output with no id argument"""
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.show()")
+            self.assertEqual(f.getvalue().rstrip(),
+                             "** no instance found **")
+
+    def testShowMethodWrongId(self):
+        """Tests for the correct output with an invalid id"""
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.show(\"fubar\")")
+            self.assertEqual(f.getvalue().rstrip(),
+                             "** no instance found **")
+
+    def testDestroyMethod(self):
+        """Tests for the class.destroy() method"""
+        b1 = BaseModel()
+
+        with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.destroy(\"{}\")")
