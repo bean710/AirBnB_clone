@@ -9,6 +9,7 @@ import models
 from models.base_model import BaseModel
 from models.user import User
 
+
 class TestConsoleClass(unittest.TestCase):
     """This is the unittest case for the console"""
     original_path = ""
