@@ -137,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        s_all[key].__dict__[args[2]] = (args[3])
+        s_all[key].__dict__[args[2]] = args[3]
         s_all[key].save()
 
     def default(self, line):
