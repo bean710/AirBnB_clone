@@ -19,5 +19,31 @@ This console is one of the tools to be used for the Holberton Airbnb clone. Our 
 - create: create a new instanceof a class
 - destroy: removes an objecy fro storage
 - update: updates an instance in storge
+
+## Command Usage
+Quit
+```
+quit
+```
+All
+```
+all OR all <class name>
+```
+Help
+```
+help OR help <command>
+```
+Create
+```
+create <class name>
+```
+Destroy
+```
+destroy <class name> <object id>
+```
+Update
+```
+update <class name> <id> <attribute name> "<attribute value>"
+```
 ---
 Authors: Raudo Rivas, Ben Keener
