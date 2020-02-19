@@ -1,7 +1,13 @@
 #!/usr/bin/python3
 """This module contains the testing class for the file storage"""
 import unittest
+import models
 from models.base_model import BaseModel
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from models.engine.file_storage import FileStorage
 import os
 import json
@@ -75,3 +81,47 @@ class TestFileStorage(unittest.TestCase):
 
         self.maxDiff = None
         self.assertEqual(og_all_dict, {k:v.to_dict() for k, v in fs.all().items()})
+
+    def testStoreState(self):
+        """Tests that a State can me stored and reloaded"""
+        s1 = State()
+
+        fs.save()
+        FileStorage._FileStorage__objects = {}
+
+        fs.reload()
+
+        self.assertIn("State.{}".format(s1.id), models.storage.all().keys())
+
+    def testStoreCity(self):
+        """Tests that a City can me stored and reloaded"""
+        s1 = City()
+
+        fs.save()
+        FileStorage._FileStorage__objects = {}
+
+        fs.reload()
+
+        self.assertIn("City.{}".format(s1.id), models.storage.all().keys())
+
+    def testStorePlace(self):
+        """Tests that a Place can me stored and reloaded"""
+        s1 = Place()
+
+        fs.save()
+        FileStorage._FileStorage__objects = {}
+
+        fs.reload()
+
+        self.assertIn("Place.{}".format(s1.id), models.storage.all().keys())
+
+    def testStoreReview(self):
+        """Tests that a Review can me stored and reloaded"""
+        s1 = Review()
+
+        fs.save()
+        FileStorage._FileStorage__objects = {}
+
+        fs.reload()
+
+        self.assertIn("Review.{}".format(s1.id), models.storage.all().keys())
