@@ -165,7 +165,7 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             count = sum(1 for k, v in s_all.items()
-                       if v.to_dict()["__class__"] == cname)
+                        if v.to_dict()["__class__"] == cname)
             print(count)
         elif (command == "show"):
             if (cname not in modelClasses):
