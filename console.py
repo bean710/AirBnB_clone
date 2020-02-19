@@ -110,7 +110,6 @@ class HBNBCommand(cmd.Cmd):
         args = re.compile(r"(\"[^\"]+\"|[^,\s]+)").findall(line)
         s_all = models.storage.all()
 
-        args = [x.strip("\"") for x in args]
 
         if (len(args) == 0):
             print("** class name missing **")
@@ -137,9 +136,10 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
+        args[3] = args[3].strip("\"")
+
         s_all[key].__dict__[args[2]] = args[3]
-        #s_all[key].save()
-        models.storage.save()
+        s_all[key].save()
 
     def default(self, line):
         """Handles custom format commands"""
