@@ -367,7 +367,8 @@ class TestConsoleClass(unittest.TestCase):
 
         with unittest.mock.patch("sys.stdout", new=StringIO()) as f:
             HBNBCommand().onecmd("BaseModel.update(\"{}\", ".format(b1.id) +
-                                 "{\"name\": \"Ben Keener\", \"foo\": \"bar\"})")
+                                 "{\"name\": \"Ben Keener\", \"foo\": " +
+                                 "\"bar\"})")
             self.assertEqual("", f.getvalue().rstrip())
 
         self.assertEqual(b1.foo, "bar")
