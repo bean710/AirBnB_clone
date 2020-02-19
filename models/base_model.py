@@ -29,7 +29,7 @@ class BaseModel():
 
     def __str__(self):
         """String method to return prettier version of the BaseModel"""
-        return ("[{}] ({}) <{}>".format(type(self).__name__, self.id,
+        return ("[{}] ({}) {}".format(type(self).__name__, self.id,
                                         self.__dict__))
 
     def to_dict(self):
