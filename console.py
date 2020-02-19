@@ -160,6 +160,7 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             self.do_all(cname)
+
         elif (command == "count"):
             if (cname not in modelClasses):
                 print("** class doesn't exist **")
@@ -168,6 +169,7 @@ class HBNBCommand(cmd.Cmd):
             count = sum(1 for k, v in s_all.items()
                         if v.to_dict()["__class__"] == cname)
             print(count)
+
         elif (command == "show"):
             if (cname not in modelClasses):
                 print("** class doesn't exist **")
@@ -183,23 +185,34 @@ class HBNBCommand(cmd.Cmd):
                 print(models.storage.all()["{}.{}".format(cname, arg)])
             else:
                 print("** no instance found **")
+
         elif (command == "destroy"):
             if (cname not in modelClasses):
                 print("** class doesn't exist **")
                 return
 
             self.do_destroy(cname + " " + arg[1:-1])
+
         elif (command == "update"):
             if (re.match(r"\"[^\"]+\", {.+}", arg)):
+                if (cname not in modelClasses):
+                    print("** class doesn't exist **")
+                    return
                 s_all = models.storage.all()
 
                 arg = arg.replace("\'", "\"")
                 arg_d = json.loads(arg.split(", ", 1)[1])
                 key = cname + "." + arg.split(", ")[0].strip("\"")
+
+                if (key not in s_all.keys()):
+                    print("** no instance found **")
+                    return
+
                 for k, v in arg_d.items():
                     setattr(s_all[key], k, v)
             else:
                 self.do_update(cname + " " + arg)
+
         else:
             super().default(line)
 
