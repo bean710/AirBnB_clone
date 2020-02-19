@@ -203,8 +203,8 @@ class HBNBCommand(cmd.Cmd):
                     setattr(s_all[key], k, v)
             else:
                 args = arg.split(", ")
-                key = "{}.{}".format(cname, args[0].strip("\""))
-                setattr(s_all[key], args[1].strip("\""), args[2].strip("\""))
+                do_update(cname + " " + args[0].strip("\"") + " " +
+                          args[1].strip("\"") + " " + args[2])
 
         else:
             super().default(line)
