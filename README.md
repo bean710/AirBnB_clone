@@ -1,3 +1,4 @@
+![HBNB](https://i.ibb.co/Cw9FTZg/holberton-logo.png)
 # AirBnB Clone
 
 This console is one of the tools to be used for the Holberton Airbnb clone. Our console can retrieve objects from a JSON.

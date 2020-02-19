@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 from datetime import datetime
 import json
 
+
 class TestBaseClass(unittest.TestCase):
     """Contains functions for testing aspects of the base class"""
 
@@ -33,8 +34,10 @@ class TestBaseClass(unittest.TestCase):
 
         self.assertEqual(a_dict["__class__"], "BaseModel")
 
-        self.assertRegex(a_dict["created_at"], "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d+")
-        self.assertRegex(a_dict["updated_at"], "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d+")
+        self.assertRegex(a_dict["created_at"],
+                         "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d+")
+        self.assertRegex(a_dict["updated_at"],
+                         "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d+")
 
     def testSave(self):
         """Tests that save updates the time"""
@@ -51,7 +54,7 @@ class TestBaseClass(unittest.TestCase):
     def testInit(self):
         """Tests init given a dictionary"""
         bma = BaseModel()
-        bma.my_num = 47;
+        bma.my_num = 47
 
         bmb = BaseModel(**bma.to_dict())
 
