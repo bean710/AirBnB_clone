@@ -63,3 +63,4 @@ class FileStorage():
         """Removes an entry from storage"""
         if (id_s in FileStorage.__objects):
             del FileStorage.__objects[id_s]
+            self.save()
