@@ -138,7 +138,8 @@ class HBNBCommand(cmd.Cmd):
             return
 
         s_all[key].__dict__[args[2]] = args[3]
-        s_all[key].save()
+        #s_all[key].save()
+        models.storage.save()
 
     def default(self, line):
         """Handles custom format commands"""
