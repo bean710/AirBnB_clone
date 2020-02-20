@@ -13,7 +13,7 @@ This console is one of the tools to be used for the Holberton Airbnb clone. Our 
 - Review
 
 ## Commands
-- EOF: quit the console by end of file
+- EOF: quit the console by end of file properly
 - quit: quit console
 - all: show all objects
 - help: list of available commands
