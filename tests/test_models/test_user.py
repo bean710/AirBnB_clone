@@ -3,6 +3,7 @@
 import unittest
 from models.user import User
 
+
 class TestUserClass(unittest.TestCase):
     """Class contains testing methods"""
 
