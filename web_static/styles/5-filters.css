@@ -50,3 +50,8 @@ button:hover {
 .filters h3, h4 {
     margin-left: 10%;
 }
+
+.locations {
+    border-right: 1px solid;
+    border-color: #DDDDDD;
+}
