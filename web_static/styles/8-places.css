@@ -80,4 +80,5 @@ article .information {
 .description {
     align-self: flex-start;
     margin-top: 5px;
+    text-align: left;
 }
